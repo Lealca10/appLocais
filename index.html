@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalRate - Avalie Locais</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Added Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="screen active">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>LocalRate</h1>
+                <p>Descubra e avalie os melhores locais</p>
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="tab-btn active" data-tab="login">Entrar</button>
+                <button class="tab-btn" data-tab="register">Cadastrar</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form active">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Senha</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn-primary">Entrar</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="register-form" class="auth-form">
+                <div class="form-group">
+                    <label for="register-name">Nome Completo</label>
+                    <input type="text" id="register-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Senha</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm">Confirmar Senha</label>
+                    <input type="password" id="register-confirm" required>
+                </div>
+                <button type="submit" class="btn-primary">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main App Screen -->
+    <div id="app-screen" class="screen">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>LocalRate</h1>
+            <div class="user-menu">
+                <button id="user-btn" class="user-btn">
+                    <span id="user-name">Usuário</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div id="user-dropdown" class="user-dropdown">
+                    <button id="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Sair
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main id="main-content" class="main-content">
+            <!-- Content will be dynamically loaded here -->
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-btn active" data-page="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </button>
+            <button class="nav-btn" data-page="locations">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Locais</span>
+            </button>
+            <button class="nav-btn" data-page="ranking">
+                <i class="fas fa-trophy"></i>
+                <span>Ranking</span>
+            </button>
+            <button class="nav-btn" data-page="profile">
+                <i class="fas fa-user"></i>
+                <span>Perfil</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Added supabase.js script before auth.js to fix loading order -->
+    <script src="js/supabase.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
