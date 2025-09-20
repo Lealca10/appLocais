@@ -11,6 +11,12 @@ class App {
   async init() {
     if (this.isInitialized) return
 
+    const mainContent = document.getElementById("main-content")
+    if (!mainContent) {
+      console.error("Main content element not found")
+      return
+    }
+
     this.setupNavigation()
     this.initializePages()
     await this.loadPage("home")
@@ -36,7 +42,12 @@ class App {
   }
 
   async loadPage(pageName) {
-    if (this.currentPage === pageName) return
+    console.log("[v0] loadPage called with:", pageName)
+
+    // if (this.currentPage === pageName) {
+    //   console.log("[v0] Page already loaded:", pageName)
+    //   return
+    // }
 
     this.showLoading(true)
 
@@ -51,26 +62,40 @@ class App {
 
     // Load page content
     const page = this.pages[pageName]
+    console.log("[v0] Page object:", page)
+
     if (page) {
       try {
+        console.log("[v0] Rendering page:", pageName)
         const content = await page.render()
+        console.log("[v0] Page content length:", content.length)
+
         const mainContent = document.getElementById("main-content")
+        console.log("[v0] Main content element:", mainContent)
+
         if (mainContent) {
           mainContent.innerHTML = content
+          console.log("[v0] Content set in main-content")
 
           // Initialize page-specific functionality
           if (page.init) {
+            console.log("[v0] Initializing page:", pageName)
             page.init()
           }
+        } else {
+          console.error("[v0] Main content element not found!")
         }
       } catch (error) {
-        console.error("Error loading page:", error)
+        console.error("[v0] Error loading page:", error)
         this.showToast("Erro ao carregar a página", "error")
       }
+    } else {
+      console.error("[v0] Page not found:", pageName)
     }
 
     this.currentPage = pageName
     this.showLoading(false)
+    console.log("[v0] loadPage completed for:", pageName)
   }
 
   showLoading(show) {
@@ -261,7 +286,7 @@ class LocationsPage extends BasePage {
                     
                     <div class="locations-controls" style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem;">
                         <button id="add-location-btn" class="btn-primary" style="flex-shrink: 0;">
-                            <i class="fas fa-plus"></i> Adicionar local
+                            <i class="fas fa-plus"></i> Adicionar<br>Local
                         </button>
                         
                         <div class="search-bar" style="flex: 1;">

@@ -191,17 +191,36 @@ class AuthManager {
   }
 
   showApp() {
+    console.log("[v0] showApp() called")
     const loginScreen = document.getElementById("login-screen")
     const appScreen = document.getElementById("app-screen")
+
+    console.log("[v0] Login screen before:", loginScreen.className)
+    console.log("[v0] App screen before:", appScreen.className)
 
     loginScreen.classList.remove("active")
     appScreen.classList.add("active")
 
+    console.log("[v0] Login screen after:", loginScreen.className)
+    console.log("[v0] App screen after:", appScreen.className)
+
     setTimeout(() => {
-      if (window.app && !window.app.isInitialized) {
+      console.log("[v0] Timeout executed, checking window.App:", window.App)
+
+      if (!window.app) {
+        console.log("[v0] Creating new App instance")
+        window.app = new window.App()
+      } else {
+        console.log("[v0] App instance already exists")
+      }
+
+      console.log("[v0] App isInitialized:", window.app.isInitialized)
+
+      if (!window.app.isInitialized) {
+        console.log("[v0] Initializing app")
         window.app.init()
-      } else if (window.app && window.app.isInitialized) {
-        // If app is already initialized, just load home page
+      } else {
+        console.log("[v0] App already initialized, loading home page")
         window.app.loadPage("home")
       }
     }, 100)
